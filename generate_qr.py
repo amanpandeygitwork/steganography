@@ -1,6 +1,6 @@
-import segno
+import qrcode
 
 #generating a qr code
 msg = input()
-qrcode = segno.make_qr(msg)
-qrcode.save("qrcode.png",scale=8)
+qr = qrcode.make(msg)
+qr.save("qrcode.png");
