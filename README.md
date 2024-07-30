@@ -1,11 +1,6 @@
 # Steganography
-Hiding information within a image
-
-
-## Changes
-- Changed segno with qrcode
-- Changed system from hiding image to text
-- Uses 1LSB instead of 4LSBs
+Hidding an image behind another by replacing LSB of the cover image "qrcode.png" by the bit values of another image "hidden.png"
+Using a hidden image that is half the size of the cover image allows us to save any information loss on the hidden image
 
 ## Create a copy of the project
 ```bash
@@ -22,12 +17,12 @@ After you enter an input string in this case I am using google.com a new qrcode 
 ### Scanning the qr online
 ![qrcode](./assets/scanning_qr.png?raw=true) 
 
-## Merging the text with cover "qrcode.png"
-"Hidden text"
+## Merging the "hidden.png" image with cover "qrcode.png"
+![qrcode](hidden.png?raw=true) 
 ```bash
 python steganography.py
 ```
-This will hide the text "Hidden text" within "qrcode.png" and generate a new image "merged_img.png" 
+This should hide the image "hidden.png" within "qrcode.png" and generate a new image "merged_img.png" 
 ![qrcode](merged_img.png?raw=true) 
 
 Even though it looks the same as "qrcode.png" a quick comparision of the two would show otherwise
@@ -36,9 +31,9 @@ Even though it looks the same as "qrcode.png" a quick comparision of the two wou
 ## Finally scanning "the merged_img.png" seems to work too
 ![qrcode](./assets/merged_img_qr_scan.png?raw=true) 
 
-## To decode the hidden text back run the following script
+## To decode the hidden image back run the following script
 ```bash
 python reconstruct.py
 ```
 
-This will print the hidden text from the hidden image
+This will generate a new image "decoded.png" which is the hidden image
