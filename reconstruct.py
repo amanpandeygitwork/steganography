@@ -1,19 +1,19 @@
 from PIL import Image
 
 #SOME GLOBAL VARIABLES
-WIDTH = 264
-HEIGHT = 264
+WIDTH = 330
+HEIGHT = 330
 
 #main function
 def main():
     merged_img = Image.open("merged_img.png")
     decoded_img = decode(merged_img)
-    decoded_img.save("decoded.png")
+    decoded_img.save("new_decoded.png")
 
 
 #extracting the hidden image from the merged image
 def decode(merged_img):
-    pixel_count = 132*132
+    pixel_count = 165*56
     loaded_merged_img = merged_img.load()
     hidden_bin = extract_hidden(loaded_merged_img,pixel_count)
     hidden_img = createImageFromBinary(hidden_bin)
@@ -30,9 +30,9 @@ def extract_hidden(merged_img,pixel_count):
             pixel = merged_img[row,col]
             r,g,b = pixel
             r_bin, g_bin, b_bin = format_binary(r,g,b)
-            hidden_bin+= r_bin[4:8] + g_bin[4:8] + b_bin[4:8]
+            hidden_bin+= r_bin[6:8] + g_bin[6:8] + b_bin[6:8]
             ind+=1
-            if ind >= pixel_count * 2:
+            if ind >= pixel_count * 4:
                 return hidden_bin
         
     return hidden_bin
@@ -43,13 +43,13 @@ def format_binary(r,g,b):
 
 #creating the hidden image back from it's binary
 def createImageFromBinary(hidden_bin):
-    hidden_img = Image.new("RGB",(WIDTH//2,HEIGHT//2))
+    hidden_img = Image.new("RGB",(WIDTH//2,56))
     loaded_hidden_img = hidden_img.load()
 
     ind = 0
 
     for row in range(WIDTH//2):
-        for col in range(HEIGHT//2):
+        for col in range(56):
             r_bin = hidden_bin[ind:ind+8]
             g_bin = hidden_bin[ind+8:ind+16]
             b_bin = hidden_bin[ind+16:ind+24]
